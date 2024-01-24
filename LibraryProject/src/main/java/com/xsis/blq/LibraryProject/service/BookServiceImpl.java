@@ -1,6 +1,7 @@
 package com.xsis.blq.LibraryProject.service;
 
 import com.xsis.blq.LibraryProject.entity.Book;
+import com.xsis.blq.LibraryProject.exception.BookException;
 import com.xsis.blq.LibraryProject.model.BookRequest;
 import com.xsis.blq.LibraryProject.model.BookResponse;
 import com.xsis.blq.LibraryProject.repository.BookRepository;
@@ -39,7 +40,7 @@ public class BookServiceImpl implements BookService{
     public BookResponse getBookById(long bookId) {
         log.info("Get the book for book id: {}",bookId);
         Book book = bookRepository.findById(bookId)
-                .orElseThrow(()-> new RuntimeException("Book not found"));
+                .orElseThrow(()-> new BookException("Book with given id not found", "BOOK_NOT_FOUND"));
         BookResponse bookResponse = new BookResponse();
         BeanUtils.copyProperties(book,bookResponse);
 
@@ -51,7 +52,7 @@ public class BookServiceImpl implements BookService{
         log.info("Reduce {} book from {}", quantity,bookId);
         Book book = bookRepository
                 .findById(bookId)
-                .orElseThrow(()-> new RuntimeException("Book not found"));
+                .orElseThrow(()-> new BookException("Book with given id not found", "BOOK_NOT_FOUND"));
 
         if(book.getQuantity()<quantity){
             throw new RuntimeException("Invalid amount");
@@ -67,7 +68,7 @@ public class BookServiceImpl implements BookService{
         log.info("Remove book with id: {}", bookId);
         Book book = bookRepository
                 .findById(bookId)
-                .orElseThrow(()-> new RuntimeException("Book not found"));
+                .orElseThrow(()-> new BookException("Book with given id not found", "BOOK_NOT_FOUND"));
         bookRepository.delete(book);
         log.info("Book Removed");
     }
