@@ -45,4 +45,30 @@ public class BookServiceImpl implements BookService{
 
         return bookResponse;
     }
+
+    @Override
+    public void reduceQuantity(long bookId, long quantity) {
+        log.info("Reduce {} book from {}", quantity,bookId);
+        Book book = bookRepository
+                .findById(bookId)
+                .orElseThrow(()-> new RuntimeException("Book not found"));
+
+        if(book.getQuantity()<quantity){
+            throw new RuntimeException("Invalid amount");
+        }
+
+        book.setQuantity(book.getQuantity()-quantity);
+        bookRepository.save(book);
+        log.info("Book quantity is updated");
+    }
+
+    @Override
+    public void removeBook(long bookId) {
+        log.info("Remove book with id: {}", bookId);
+        Book book = bookRepository
+                .findById(bookId)
+                .orElseThrow(()-> new RuntimeException("Book not found"));
+        bookRepository.delete(book);
+        log.info("Book Removed");
+    }
 }

@@ -7,4 +7,8 @@ public interface BookService {
     long addBook(BookRequest bookRequest);
 
     BookResponse getBookById(long bookId);
+
+    void reduceQuantity(long bookId, long quantity);
+
+    void removeBook(long bookId);
 }

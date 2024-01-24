@@ -25,4 +25,17 @@ public class BookController {
         BookResponse bookResponse = bookService.getBookById(bookId);
         return new ResponseEntity<>(bookResponse, HttpStatus.OK);
     }
+
+    @PutMapping("/reduceQuantity/{id}")
+    public ResponseEntity<Void> reduceQuantity(@PathVariable("id") long bookId,
+                                               @RequestParam long quantity){
+        bookService.reduceQuantity(bookId, quantity);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/removeBook/{id}")
+    public ResponseEntity<Void> removeBook(@PathVariable("id") long bookId){
+        bookService.removeBook(bookId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
