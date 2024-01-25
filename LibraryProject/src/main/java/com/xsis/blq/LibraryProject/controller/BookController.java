@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/book")
 public class BookController {
@@ -24,6 +26,12 @@ public class BookController {
     public ResponseEntity<BookResponse> getBookById(@PathVariable("id") long bookId){
         BookResponse bookResponse = bookService.getBookById(bookId);
         return new ResponseEntity<>(bookResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/getAll")
+    public ResponseEntity<List<BookResponse>> getAllBook(){
+        List<BookResponse> bookResponses = bookService.getAllBook();
+        return new ResponseEntity<>(bookResponses, HttpStatus.OK);
     }
 
     @PutMapping("/reduceQuantity/{id}")

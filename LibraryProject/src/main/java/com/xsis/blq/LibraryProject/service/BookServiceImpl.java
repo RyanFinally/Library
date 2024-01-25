@@ -11,6 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.springframework.beans.BeanUtils.*;
+
 @Service
 @Slf4j
 public class BookServiceImpl implements BookService{
@@ -42,7 +47,7 @@ public class BookServiceImpl implements BookService{
         Book book = bookRepository.findById(bookId)
                 .orElseThrow(()-> new BookException("Book with given id not found", "BOOK_NOT_FOUND"));
         BookResponse bookResponse = new BookResponse();
-        BeanUtils.copyProperties(book,bookResponse);
+        copyProperties(book,bookResponse);
 
         return bookResponse;
     }
@@ -71,5 +76,18 @@ public class BookServiceImpl implements BookService{
                 .orElseThrow(()-> new BookException("Book with given id not found", "BOOK_NOT_FOUND"));
         bookRepository.delete(book);
         log.info("Book Removed");
+    }
+
+    @Override
+    public List<BookResponse> getAllBook() {
+        log.info("List of books");
+        List<Book> allBook = bookRepository.findAll();
+        List<BookResponse> bookResponses = new ArrayList<>();
+        for (Book book : allBook) {
+            BookResponse bookResponse = new BookResponse();
+            BeanUtils.copyProperties(book, bookResponse);
+            bookResponses.add(bookResponse);
+        }
+        return bookResponses;
     }
 }
