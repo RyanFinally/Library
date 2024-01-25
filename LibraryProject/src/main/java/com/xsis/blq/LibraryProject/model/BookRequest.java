@@ -2,6 +2,8 @@ package com.xsis.blq.LibraryProject.model;
 
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 public class BookRequest {
     private long bookId;
@@ -10,6 +12,6 @@ public class BookRequest {
     private long price;
     private String rackNo;
     private String edition;
-    private String dateOfPurchase;
+    private LocalDate dateOfPurchase;
     private long quantity;
 }

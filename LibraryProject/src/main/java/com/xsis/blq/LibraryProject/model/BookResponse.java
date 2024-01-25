@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -16,6 +18,6 @@ public class BookResponse {
     private long price;
     private String rackNo;
     private String edition;
-    private String dateOfPurchase;
+    private LocalDate dateOfPurchase;
     private long quantity;
 }
