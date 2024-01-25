@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Library Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand" style="padding: 10px;">Library Management System</a>
+
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+     Navbar links
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/book}">Home</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <h1> List of Books </h1>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3">
+            <a th:href="@{/book/new}" class="btn btn-primary btn-sm mb-3"> Add Book</a>
+        </div>
+    </div>
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th> Id </th>
+            <th> Author </th>
+            <th> Title </th>
+            <th> Price </th>
+            <th> Rack Number </th>
+            <th> Edition </th>
+            <th> Data of Purchase </th>
+            <th> Quantity </th>
+            <th> Action </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="bookResponse: ${bookResponse}">
+            <td th:text="${bookResponse.bookId}"></td>
+            <td th:text="${bookResponse.author}"></td>
+            <td th:text="${bookResponse.title}"></td>
+            <td th:text="${bookResponse.price}"></td>
+            <td th:text="${bookResponse.rackNo}"></td>
+            <td th:text="${bookResponse.edition}"></td>
+            <td th:text="${bookResponse.dateOfPurchase}"></td>
+            <td th:text="${bookResponse.quantity}"></td>
+
+            <td>
+                <a th:href="@{/book/edit/{id}(id=${bookResponse.bookId})}"
+                   class="btn btn-primary">Update</a>
+
+                <a th:href="@{/book/{id}(id=${bookResponse.bookId})}"
+                   class="btn btn-danger">Delete</a>
+
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+
+</div>
+</body>
+</html>

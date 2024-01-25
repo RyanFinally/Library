@@ -90,4 +90,22 @@ public class BookServiceImpl implements BookService{
         }
         return bookResponses;
     }
+
+    @Override
+    public void updateBook(Long bookId, BookResponse bookResponse) {
+        log.info("Update book with id : {}", bookId);
+        Book book = Book.builder()
+                .bookId(bookId)
+                .title(bookResponse.getTitle())
+                .author(bookResponse.getAuthor())
+                .price(bookResponse.getPrice())
+                .edition(bookResponse.getEdition())
+                .rackNo(bookResponse.getRackNo())
+                .dateOfPurchase(bookResponse.getDateOfPurchase())
+                .quantity(bookResponse.getQuantity())
+                .build();
+
+        bookRepository.save(book);
+        log.info("Book updated");
+    }
 }
